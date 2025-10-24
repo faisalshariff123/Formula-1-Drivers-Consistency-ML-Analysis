@@ -14,6 +14,16 @@ fastf1.Cache.enable_cache('cache')
 year = 2025 
 season = get_event_schedule(year)
 race_names = season['EventName'].unique()
-all_laps = pd.DataFrame()
+df = pd.DataFrame()
 # print(all_laps)
-print("im gae")
+for race in race_names[:2]:
+    session = fastf1.get_session(2023, race, 'R')
+    session.load()
+    df = pd.concat([df, session.laps])
+
+
+
+df_driver = df['Driver'].unique()
+
+print(df_driver)
+
